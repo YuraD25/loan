@@ -12,6 +12,7 @@ use App\Domain\Repository\ClientRepositoryInterface;
 use App\Domain\Repository\LoanRepositoryInterface;
 use App\Domain\Rule\CreditCheckRuleInterface;
 use App\Domain\Rule\OstravaInterestRateRule;
+use DateTimeImmutable;
 use Exception;
 use Psr\Log\LoggerInterface;
 
@@ -44,8 +45,8 @@ readonly class IssueLoan
                 throw new Exception("Client $loanDto->clientId not found");
             }
 
-            $startDate = new \DateTimeImmutable($loanDto->startDate);
-            $endDate = new \DateTimeImmutable($loanDto->endDate);
+            $startDate = new DateTimeImmutable($loanDto->startDate);
+            $endDate = new DateTimeImmutable($loanDto->endDate);
             $term = $startDate->diff($endDate)->days;
 
             $loan = $this->loanFactory->create(
