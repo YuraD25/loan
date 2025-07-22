@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Domain\Credit\Rule;
 
 use App\Domain\Entity\Client;
+use App\Domain\Entity\Loan;
 use App\Domain\Exception\CreditRuleException;
 use App\Domain\Rule\AgeRule;
-use App\Domain\Entity\Loan;
 use PHPUnit\Framework\TestCase;
 
 class AgeRuleTest extends TestCase
