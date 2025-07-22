@@ -37,7 +37,11 @@ services:
         App\Domain\Rule\CreditCheckRuleInterface:
             tags: ['app.credit_rule']
 
-    # Явно передаем все сервисы с тегом в конструктор IssueCredit
+    # Явно передаем все сервисы с тегом в конструктор IssueLoan
     App\Application\UseCase\IssueLoan:
+        arguments:
+            $rules: !tagged_iterator app.credit_rule
+    # Явно передаем все сервисы с тегом в конструктор IssueLoan
+    App\Application\UseCase\CheckIssueLoan:
         arguments:
             $rules: !tagged_iterator app.credit_rule
