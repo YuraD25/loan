@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\ValueResolver;
 use Symfony\Component\Routing\Attribute\Route;
+use Throwable;
 
 class CreateNewClientAction extends AbstractController
 {
@@ -28,7 +29,7 @@ class CreateNewClientAction extends AbstractController
                 ['status' => 'success'],
                 Response::HTTP_OK
             );
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             return new JsonResponse(
                 ['error' => $e->getMessage()],
                 Response::HTTP_INTERNAL_SERVER_ERROR

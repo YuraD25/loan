@@ -67,9 +67,48 @@ curl -X POST http://localhost:8080/create-new-client \
 ```
 **Возможные ответы:**
 *   `201 Created` - Клиент успешно создан.
-*   `400 Bad Request` - Ошибки валидации данных (неверный формат email, пустое поле и т.д.).
+*   `500 Internal Error` - Внутренняя ошибка.
 
-### 2. Выдача нового кредита
+### 2. Проверка выдачи нового кредита
+
+**Эндпоинт:** `POST http://localhost:8080/check-new-loan`
+
+**Заголовки:**
+```
+Content-Type: application/json
+```
+
+**Тело запроса (JSON):**
+```json
+{
+  "name": "Personal Loan",
+  "clientId": 1,
+  "amount": 10000,
+  "rate": 10,
+  "start_date": "2025-01-01",
+  "end_date": "2025-12-31"
+}
+```
+*Примечание: `clientId` должен соответствовать ID существующего клиента в базе данных.*
+
+**Пример с `curl`:**
+```bash
+curl -X POST http://localhost:8080/check-new-loan \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Personal Loan",
+  "clientId": 1,
+  "amount": 10000,
+  "rate": 10,
+  "start_date": "2025-01-01",
+  "end_date": "2025-12-31"
+}'
+```
+**Возможные ответы:**
+*   `200 OK` - Кредит может быть одобрен.
+*   `422 Unprocessable Entity` - Кредит не может быть одобрен (неподходящий возраст, низкий доход и т.д.).
+
+### 3. Выдача нового кредита
 
 **Эндпоинт:** `POST http://localhost:8080/create-new-loan`
 
@@ -105,8 +144,8 @@ curl -X POST http://localhost:8080/create-new-loan \
 }'
 ```
 **Возможные ответы:**
-*   `200 OK` - Кредит одобрен и выдан.
-*   `422 Unprocessable Entity` - Заявка отклонена по одному из бизнес-правил (неподходящий возраст, низкий доход и т.д.).
+*   `200 OK` - Кредит одобрен.
+*   `422 Unprocessable Entity` - Кредит не одобрен (неподходящий возраст, низкий доход и т.д.).
 
 ## Инструменты для разработки
 
