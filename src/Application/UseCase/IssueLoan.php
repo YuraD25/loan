@@ -12,6 +12,7 @@ use App\Domain\Repository\ClientRepositoryInterface;
 use App\Domain\Repository\LoanRepositoryInterface;
 use App\Domain\Rule\CreditCheckRuleInterface;
 use App\Domain\Rule\OstravaInterestRateRule;
+use Exception;
 use Psr\Log\LoggerInterface;
 
 readonly class IssueLoan
@@ -32,7 +33,7 @@ readonly class IssueLoan
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(LoanDto $loanDto): void
     {
@@ -40,7 +41,7 @@ readonly class IssueLoan
             $client = $this->clientRepository->getById($loanDto->clientId);
 
             if (null === $client) {
-                throw new \Exception("Client $loanDto->clientId not found");
+                throw new Exception("Client $loanDto->clientId not found");
             }
 
             $startDate = new \DateTimeImmutable($loanDto->startDate);
