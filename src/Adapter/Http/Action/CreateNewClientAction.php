@@ -26,7 +26,10 @@ class CreateNewClientAction extends AbstractController
             $useCase->handle($clientDto);
 
             return new JsonResponse(
-                ['status' => 'success'],
+                [
+                    'status' => 'success',
+                    'message' => 'Клиент успешно создан'
+                ],
                 Response::HTTP_OK
             );
         } catch (Throwable $e) {

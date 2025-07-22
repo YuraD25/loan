@@ -26,7 +26,10 @@ class IssueLoanAction extends AbstractController
             $useCase->handle($loanDto);
 
             return new JsonResponse(
-                ['status' => 'success'],
+                [
+                    'status' => 'success',
+                    'message' => 'Кредит успешно выдан'
+                ],
                 Response::HTTP_OK
             );
         } catch (Throwable $e) {
